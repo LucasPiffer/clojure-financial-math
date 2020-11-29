@@ -15,17 +15,25 @@
         base
         (* base (power base (dec steps)))))))
 
-(defn multiplication-table
+(defn power-table
   ([number] (multiplication-table number 1))
   ([number exp] (let [exponent exp]
                        (cons (power number exponent)
                              (lazy-seq (multiplication-table number (inc exponent)))))))
 
-(take 3 (multiplication-table 2))
+(defn multiplication-table
+  ([number] (multiplication-table number 1))
+  ([number index] (let [idx index]
+                  (cons (* number idx)
+                        (lazy-seq (multiplication-table number (inc idx)))))))
 
-(power 2 2)
+(take 10 (multiplication-table 7))
+
+(power 2 10)
 
 (defn future-value
   "returns the future value given interest and the period"
   [present-value i n]
   (* present-value (power (+ 1 i) n)))
+
+(future-value 12000 0.035 8)
