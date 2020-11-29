@@ -16,10 +16,10 @@
         (* base (power base (dec steps)))))))
 
 (defn power-table
-  ([number] (multiplication-table number 1))
+  ([number] (power-table number 1))
   ([number exp] (let [exponent exp]
                        (cons (power number exponent)
-                             (lazy-seq (multiplication-table number (inc exponent)))))))
+                             (lazy-seq (power-table number (inc exponent)))))))
 
 (defn multiplication-table
   ([number] (multiplication-table number 1))
@@ -27,7 +27,7 @@
                   (cons (* number idx)
                         (lazy-seq (multiplication-table number (inc idx)))))))
 
-(take 10 (multiplication-table 7))
+(take 10 (power-table 7))
 
 (power 2 10)
 
